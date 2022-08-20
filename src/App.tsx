@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./styles/globals.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+import NotFoundPage from "404";
+import HomePage from "containers/homepage";
+import Navbar from "components/core/navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Navbar />
+        <div className="mb:px-4 lg:px-6 xl:px-8">
+          <Routes>
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
