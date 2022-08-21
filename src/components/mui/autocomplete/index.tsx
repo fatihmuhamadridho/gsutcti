@@ -2,31 +2,19 @@ import * as React from "react";
 import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
 import { styled } from "@mui/material/styles";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
-import { useNavigate } from "react-router-dom";
-
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import { TypedDispatch, RootState } from "redux/store";
-import { getAllSearch } from "redux/actions/search";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 const Input = styled("input")(({ theme }) => ({
   padding: "6px",
-  width: "250px",
   backgroundColor: "#161B22",
   border: "1px solid black",
   borderRadius: "4px",
   color: "white",
   outline: "none",
-  fontSize: "14px",
-  transitionTimingFunction: "ease-in-out",
-  transitionDuration: "0.3s",
-  [`:focus`]: {
-    width: "280px",
-  },
+  fontSize: "14px"
 }));
 
 const Listbox = styled("ul")(({ theme }) => ({
-  width: "100%",
-  maxWidth: "265px",
   margin: 0,
   padding: 12,
   zIndex: 1,
@@ -36,7 +24,6 @@ const Listbox = styled("ul")(({ theme }) => ({
   overflow: "auto",
   maxHeight: 200,
   fontSize: "14px",
-  border: "1px solid rgba(0,0,0,.25)",
   [`& li.${autocompleteClasses.focused}`]: {
     backgroundColor: "#4a8df6",
     color: "white",
@@ -48,13 +35,16 @@ const Listbox = styled("ul")(({ theme }) => ({
   },
 }));
 
-export default function AutoCompleteMUI() {
+export default function AutoCompleteMUI({
+  searchHandleChange,
+  searchInput,
+  isLoading,
+  allState,
+}: any) {
   const {
     getRootProps,
-    getInputLabelProps,
     getInputProps,
     getListboxProps,
-    getOptionProps,
     groupedOptions,
   } = useAutocomplete({
     id: "use-autocomplete-demo",
@@ -63,45 +53,23 @@ export default function AutoCompleteMUI() {
   });
 
   const navigate = useNavigate();
-  const dispatch: TypedDispatch = useDispatch();
-  const selector: TypedUseSelectorHook<RootState> = useSelector;
-  const allState = selector((state: any) => state);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [searchInput, setSearchInput] = React.useState("");
-  const [prevSearchInput, setPrevSearchInput] = React.useState("");
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      if (prevSearchInput !== searchInput) {
-        console.log("not same");
-        setPrevSearchInput(searchInput);
-      }
-    }, 1600);
-
-    if (prevSearchInput.length > 0 && prevSearchInput === searchInput) {
-      dispatch(getAllSearch(prevSearchInput));
-      setIsLoading(false);
-    }
-
-    console.log("prevSearchInput", prevSearchInput);
-  }, [dispatch, prevSearchInput, searchInput]);
-
-  const searchHandleChange = (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setSearchInput(e.target.value);
-  };
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    navigate(`/search?q=${searchInput}`)
-    console.log("submit")
-  }
+    navigate({
+      pathname: `/search`,
+      search: createSearchParams({
+        q: searchInput
+      }).toString()
+    });
+    console.log("submit");
+  };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form className="mb:w-full sm:w-auto" onSubmit={onSubmit}>
       <div {...getRootProps()}>
         <Input
+          className="ease-in-out duration-300 mb:!w-full sm:w-[300px] focus:!w-[380px]"
           placeholder="Search or jump to..."
           {...getInputProps()}
           onChange={searchHandleChange}
@@ -109,24 +77,25 @@ export default function AutoCompleteMUI() {
         />
       </div>
       {groupedOptions.length > 0 ? (
-        <Listbox
-          className="space-y-3"
-          {...getListboxProps()}
-        >
+        <Listbox className="w-full max-w-[410px] border-[black] border-[1px] space-y-3 sm:w-[290px]" {...getListboxProps()}>
           {/* {(groupedOptions as typeof top100Films).map((option, index) => (
             <li {...getOptionProps({ option, index })}>{option.title}</li>
           ))} */}
-          {!isLoading ? allState?.search?.search?.items?.map((item: any, index: any) => {
-            if (index < 5) {
-              return (
-                <li className="w-full cursor-pointer" key={index}>
-                  {item.login}
-                </li>
-              );
-            }
+          {!allState.search.isLoading && !isLoading ? (
+            allState?.search?.search?.items?.map((item: any, index: any) => {
+              if (index < 5) {
+                return (
+                  <li className="w-full cursor-pointer" key={index}>
+                    {item.id} - {item.full_name} - {item.language}
+                  </li>
+                );
+              }
 
-            return null;
-          }) : (<div>Loading...</div>)}
+              return null;
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
         </Listbox>
       ) : null}
     </form>

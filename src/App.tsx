@@ -7,19 +7,17 @@ import { store } from "./redux/store";
 
 import NotFoundPage from "404";
 import HomePage from "containers/homepage";
-import Navbar from "components/core/navbar";
+import SearchPage from "containers/search";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Navbar />
-        <div className="mb:px-4 lg:px-6 xl:px-8">
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/search/*" element={<SearchPage />} />
           </Routes>
-        </div>
       </BrowserRouter>
     </Provider>
   );
