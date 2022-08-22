@@ -46,10 +46,6 @@ const SearchPage = () => {
         setPrevPerPage(rowSelect);
       }
 
-      // console.log("prevParams", prevParams);
-      // console.log("prevPagination", prevPagination);
-      // console.log("prevPerPage", prevPerPage)
-
       if (
         prevParams === searchParams?.get("q") &&
         prevPagination === searchParams?.get("page") &&
@@ -104,7 +100,6 @@ const SearchPage = () => {
               <h1>
                 {allState?.search?.searchs?.total_count} repository result
               </h1>
-              {/* <TablePaginationMUI /> */}
               <SelectMUI
                 rowSelect={rowSelect}
                 setRowSelect={(e: any) => setRowSelect(e)}
