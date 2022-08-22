@@ -1,4 +1,5 @@
 import PaginationMUI from "components/mui/pagination";
+import BackdropMUI from "components/mui/backdrop";
 
 const IsSearch = ({
   searchResult,
@@ -12,14 +13,15 @@ const IsSearch = ({
         {searchResult?.items?.map((item: any, index: any) => {
           return (
             <div className="border-b-[1px] cursor-pointer" key={index}>
-              {item.id} - {item.full_name} - {item.language}
+                <BackdropMUI repo={item} />
+                {/* {item.id} - {item.full_name} - {item.language} */}
             </div>
           );
         })}
       </div>
       <div className="p-4">
         <PaginationMUI
-            paginationItems={paginationItems}
+          paginationItems={paginationItems}
           pageQuery={pageQuery}
           navigateHandleChange={(e: any) => navigateHandleChange(e)}
         />

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 
+
 const List = styled("ul")({
   listStyle: "none",
   padding: 0,
@@ -12,10 +13,10 @@ export default function PaginationMUI({
   paginationItems,
   navigateHandleChange,
 }: any) {
-  console.log("paginationItems", paginationItems);
+  // console.log("paginationItems", paginationItems);
 
   return (
-    <nav className="w-full flex justify-center">
+    <nav className="w-full flex items-center justify-center">
       <List className="space-x-[10px]">
         {paginationItems?.map(
           ({ page, type, selected, ...item }: any, index: any) => {

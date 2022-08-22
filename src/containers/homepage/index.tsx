@@ -1,28 +1,22 @@
 import LayoutPage from "containers/layout";
+import { useEffect } from "react";
+
+import dummyHomepage from "./dummy";
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = "GSUTCTI"
+  })
+  
   return (
     <LayoutPage>
-      <div className="/mx-[103px]/ my-[24px] flex space-x-[20px]">
-        <div className="self-end space-y-9">
+      <div className="/mx-[103px]/ my-[24px] min-h-[80vh] flex space-x-[20px]">
+        <div className="self-center space-y-9">
           <div className="text-[32px] font-bold">
-            <h1>GITHUB SEARCH USER</h1>
-            <h1>TEST CASE TEBENGAN INDONESIA</h1>
+            <h1>{dummyHomepage.title_one}</h1>
+            <h1>{dummyHomepage.title_two}</h1>
           </div>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-            deserunt est accusantium vel cumque mollitia quaerat eveniet
-            doloribus tempore facere sunt, omnis, qui consectetur nostrum
-            exercitationem. Molestiae, commodi fuga quasi quis quod tenetur
-            nulla incidunt in adipisci recusandae quibusdam consectetur deserunt
-            architecto, dolores laboriosam expedita. Tempora dignissimos,
-            nostrum odit minus nam cum porro dolores itaque placeat alias amet
-            quibusdam velit harum, veniam delectus doloribus sed consectetur
-            consequatur? Fuga, odio, perferendis nisi error ullam esse nesciunt,
-            obcaecati ducimus quos eum consequatur reiciendis corporis? Mollitia
-            fugiat autem sint enim, esse placeat necessitatibus sit culpa
-            laudantium sunt voluptas aut ut sed quia blanditiis?
-          </p>
+          <p>{dummyHomepage.paraghraph_one}</p>
         </div>
         <div className="flex flex-col space-y-8">
           <img
@@ -32,20 +26,7 @@ const HomePage = () => {
             width={100}
             height={100}
           />
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-            deserunt est accusantium vel cumque mollitia quaerat eveniet
-            doloribus tempore facere sunt, omnis, qui consectetur nostrum
-            exercitationem. Molestiae, commodi fuga quasi quis quod tenetur
-            nulla incidunt in adipisci recusandae quibusdam consectetur deserunt
-            architecto, dolores laboriosam expedita. Tempora dignissimos,
-            nostrum odit minus nam cum porro dolores itaque placeat alias amet
-            quibusdam velit harum, veniam delectus doloribus sed consectetur
-            consequatur? Fuga, odio, perferendis nisi error ullam esse nesciunt,
-            obcaecati ducimus quos eum consequatur reiciendis corporis? Mollitia
-            fugiat autem sint enim, esse placeat necessitatibus sit culpa
-            laudantium sunt voluptas aut ut sed quia blanditiis?
-          </p>
+          <p>{dummyHomepage.paraghraph_one}</p>
         </div>
       </div>
     </LayoutPage>

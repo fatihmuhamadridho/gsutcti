@@ -16,13 +16,10 @@ const Input = styled("input")(({ theme }) => ({
 
 const Listbox = styled("ul")(({ theme }) => ({
   margin: 0,
-  padding: 12,
   zIndex: 1,
-  position: "absolute",
   listStyle: "none",
   backgroundColor: "#161B22",
   overflow: "auto",
-  maxHeight: 200,
   fontSize: "14px",
   [`& li.${autocompleteClasses.focused}`]: {
     backgroundColor: "#4a8df6",
@@ -59,7 +56,7 @@ export default function AutoCompleteMUI({
     navigate({
       pathname: `/search`,
       search: createSearchParams({
-        q: searchInput
+        q: searchInput,
       }).toString()
     });
     console.log("submit");
@@ -69,7 +66,7 @@ export default function AutoCompleteMUI({
     <form className="mb:w-full sm:w-auto" onSubmit={onSubmit}>
       <div {...getRootProps()}>
         <Input
-          className="ease-in-out duration-300 mb:!w-full sm:w-[300px] focus:!w-[380px]"
+          className="ease-in-out duration-300 mb:!w-full mb:focus:!w-full sm:position-absolute sm:w-[300px] sm:focus:!w-[380px]"
           placeholder="Search or jump to..."
           {...getInputProps()}
           onChange={searchHandleChange}
@@ -77,16 +74,13 @@ export default function AutoCompleteMUI({
         />
       </div>
       {groupedOptions.length > 0 ? (
-        <Listbox className="w-full max-w-[410px] border-[black] border-[1px] space-y-3 sm:w-[290px]" {...getListboxProps()}>
-          {/* {(groupedOptions as typeof top100Films).map((option, index) => (
-            <li {...getOptionProps({ option, index })}>{option.title}</li>
-          ))} */}
+        <Listbox className="w-full max-w-[465px] border-[black] border-[1px] rounded-[8px] space-y-3 sm:absolute sm:w-[380px]" {...getListboxProps()}>
           {!allState.search.isLoading && !isLoading ? (
             allState?.search?.search?.items?.map((item: any, index: any) => {
               if (index < 5) {
                 return (
-                  <li className="w-full cursor-pointer" key={index}>
-                    {item.id} - {item.full_name} - {item.language}
+                  <li className="p-2 w-full border-b-[1px] border-[black] cursor-pointer" key={index}>
+                    {item.full_name}
                   </li>
                 );
               }
