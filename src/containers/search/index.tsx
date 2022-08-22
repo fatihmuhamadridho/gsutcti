@@ -18,7 +18,7 @@ const SearchPage = () => {
   const navigate = useNavigate();
 
   const { items } = usePagination({
-    count: 100,
+    count: Math.round(Number(allState?.search?.searchs?.total_count)/Number(searchParams.get("per_page") || 5)) || 3,
     boundaryCount: 2,
     siblingCount: 2,
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
