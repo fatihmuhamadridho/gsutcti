@@ -9,8 +9,11 @@ Project ini merupakan project untuk test case Tebengan Indonesia dimana project 
 ### Spesifikasi Project
 
 Language : Typescript
+
 Framework : ReactJs
+
 Responsive : True
+
 Library :
 - Tailwind CSS
 - SCSS,
