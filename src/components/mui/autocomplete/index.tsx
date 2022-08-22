@@ -45,7 +45,8 @@ export default function AutoCompleteMUI({
     groupedOptions,
   } = useAutocomplete({
     id: "use-autocomplete-demo",
-    options: allState?.search?.search?.items,
+    options: allState?.search?.search?.items || [],
+    getOptionLabel: (option: any) => option?.full_name,
   });
 
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function AutoCompleteMUI({
               return null;
             })
           ) : (
-            <div>Loading...</div>
+            <div className="p-2">Loading...</div>
           ) : null}
         </Listbox>
       ) : null}

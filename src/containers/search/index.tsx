@@ -18,7 +18,7 @@ const SearchPage = () => {
   const navigate = useNavigate();
 
   const { items } = usePagination({
-    count: Math.round(Number(allState?.search?.searchs?.total_count)/Number(searchParams.get("per_page") || 5)) || 3,
+    count: Math.round(Number(allState?.search?.searchs?.total_count)/Number(searchParams.get("per_page") || 5)) || 1,
     boundaryCount: 2,
     siblingCount: 2,
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -60,7 +60,7 @@ const SearchPage = () => {
         );
         setIsLoading(false);
       }
-    }, 1000);
+    }, 1500);
   }, [dispatch, prevPagination, prevParams, prevPerPage, rowSelect, searchParams]);
 
   const navigateHandleChange = ({ page }: any) => {
